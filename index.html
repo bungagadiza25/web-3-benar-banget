@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CreativeMap - Pemetaan Ekonomi Kreatif</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* HEADER */
+        header {
+            background: #243b53;
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #243b53;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            color: #0077b6;
+        }
+
+        /* SECTION */
+        section {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            color: #243b53;
+            margin-top: 0;
+        }
+
+        /* MAP */
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* CARD */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #f8fafc;
+            border-left: 5px solid #243b53;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #243b53;
+        }
+
+        .card p {
+            line-height: 1.6;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #243b53;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f5f7fa;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #243b53;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            nav a {
+                display: block;
+                margin: 10px;
+            }
+
+            section {
+                width: 95%;
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header id="beranda">
+        <h1>CreativeMap</h1>
+
+        <p>
+            Pemetaan Ekosistem Ekonomi Kreatif untuk
+            Menentukan Potensi Karier di Era Digital
+        </p>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#beranda">Beranda</a>
+        <a href="#peta">Peta Industri</a>
+        <a href="#karier">Potensi Karier</a>
+        <a href="#kompetensi">Kompetensi</a>
+    </nav>
+
+
+    <!-- PENJELASAN -->
+    <section>
+        <h2>Tentang Studi Kasus</h2>
+
+        <p>
+            CreativeMap merupakan sistem informasi berbasis Web GIS
+            yang digunakan untuk memetakan persebaran industri kreatif
+            di beberapa wilayah Indonesia.
+        </p>
+
+        <p>
+            Sistem ini membantu pengguna mengetahui sektor industri,
+            peluang pekerjaan, serta kompetensi yang dibutuhkan sehingga
+            dapat menjadi pertimbangan dalam menentukan pengembangan
+            karier di era digital.
+        </p>
+    </section>
+
+
+    <!-- PETA -->
+    <section id="peta">
+
+        <h2>Peta Persebaran Industri Kreatif</h2>
+
+        <p>
+            Klik marker pada peta untuk melihat informasi mengenai
+            industri dan potensi karier pada masing-masing wilayah.
+        </p>
+
+        <div id="map"></div>
+
+    </section>
+
+
+    <!-- POTENSI KARIER -->
+    <section id="karier">
+
+        <h2>Potensi Karier</h2>
+
+        <div class="card-container">
+
+            <div class="card">
+                <h3>Bengkulu</h3>
+
+                <p>
+                    <b>Sektor:</b> Kuliner & UMKM
+                </p>
+
+                <p>
+                    <b>Karier:</b> Content Creator,
+                    Digital Marketing
+                </p>
+            </div>
+
+
+            <div class="card">
+                <h3>Bandung</h3>
+
+                <p>
+                    <b>Sektor:</b> Fashion & Desain
+                </p>
+
+                <p>
+                    <b>Karier:</b> Graphic Designer,
+                    Fashion Designer
+                </p>
+            </div>
+
+
+            <div class="card">
+                <h3>Jakarta</h3>
+
+                <p>
+                    <b>Sektor:</b> Teknologi Digital
+                </p>
+
+                <p>
+                    <b>Karier:</b> Web Developer,
+                    Data Analyst
+                </p>
+            </div>
+
+
+            <div class="card">
+                <h3>Yogyakarta</h3>
+
+                <p>
+                    <b>Sektor:</b> Kreatif & Pariwisata
+                </p>
+
+                <p>
+                    <b>Karier:</b> Fotografer,
+                    Videografer
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- KOMPETENSI -->
+    <section id="kompetensi">
+
+        <h2>Kompetensi yang Dibutuhkan</h2>
+
+        <table>
+
+            <tr>
+                <th>Bidang</th>
+                <th>Kompetensi</th>
+                <th>Contoh Karier</th>
+            </tr>
+
+            <tr>
+                <td>Teknologi Digital</td>
+                <td>Programming, Data Analysis</td>
+                <td>Web Developer, Data Analyst</td>
+            </tr>
+
+            <tr>
+                <td>Desain</td>
+                <td>Graphic Design, Branding</td>
+                <td>Graphic Designer</td>
+            </tr>
+
+            <tr>
+                <td>Media Kreatif</td>
+                <td>Photography, Video Editing</td>
+                <td>Fotografer, Videografer</td>
+            </tr>
+
+            <tr>
+                <td>Marketing</td>
+                <td>Digital Marketing, Communication</td>
+                <td>Digital Marketer</td>
+            </tr>
+
+        </table>
+
+    </section>
+
+
+    <!-- ANALISIS -->
+    <section>
+
+        <h2>Analisis</h2>
+
+        <p>
+            Berdasarkan pemetaan yang ditampilkan, setiap wilayah
+            memiliki karakteristik industri kreatif yang berbeda.
+            Perbedaan tersebut menyebabkan kebutuhan tenaga kerja
+            dan kompetensi yang dibutuhkan juga berbeda.
+        </p>
+
+        <p>
+            Oleh karena itu, informasi geografis dapat dimanfaatkan
+            sebagai salah satu pertimbangan dalam menentukan bidang
+            karier yang sesuai dengan perkembangan industri dan
+            kompetensi yang dimiliki.
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 CreativeMap | Web GIS Ekonomi Kreatif
+        </p>
+    </footer>
+
+
+    <!-- LEAFLET JAVASCRIPT -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <script>
+
+        // Membuat peta Indonesia
+        var map = L.map('map').setView(
+            [-2.5489, 118.0149],
+            5
+        );
+
+
+        // OpenStreetMap
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                attribution:
+                '&copy; OpenStreetMap contributors'
+            }
+        ).addTo(map);
+
+
+        // =========================
+        // MARKER BENGKULU
+        // =========================
+
+        L.marker([-3.7928, 102.2608])
+            .addTo(map)
+            .bindPopup(`
+                <h3>Bengkulu</h3>
+
+                <b>Sektor:</b>
+                Kuliner & UMKM
+                <br><br>
+
+                <b>Potensi Karier:</b>
+                Content Creator,
+                Digital Marketing
+                <br><br>
+
+                <b>Kompetensi:</b>
+                Marketing, Content Creation
+            `);
+
+
+        // =========================
+        // MARKER BANDUNG
+        // =========================
+
+        L.marker([-6.9175, 107.6191])
+            .addTo(map)
+            .bindPopup(`
+                <h3>Bandung</h3>
+
+                <b>Sektor:</b>
+                Fashion & Desain
+                <br><br>
+
+                <b>Potensi Karier:</b>
+                Graphic Designer,
+                Fashion Designer
+                <br><br>
+
+                <b>Kompetensi:</b>
+                Desain Grafis,
+                Branding
+            `);
+
+
+        // =========================
+        // MARKER JAKARTA
+        // =========================
+
+        L.marker([-6.2088, 106.8456])
+            .addTo(map)
+            .bindPopup(`
+                <h3>Jakarta</h3>
+
+                <b>Sektor:</b>
+                Teknologi Digital
+                <br><br>
+
+                <b>Potensi Karier:</b>
+                Web Developer,
+                Data Analyst
+                <br><br>
+
+                <b>Kompetensi:</b>
+                Programming,
+                Data Analysis
+            `);
+
+
+        // =========================
+        // MARKER YOGYAKARTA
+        // =========================
+
+        L.marker([-7.7956, 110.3695])
+            .addTo(map)
+            .bindPopup(`
+                <h3>Yogyakarta</h3>
+
+                <b>Sektor:</b>
+                Kreatif & Pariwisata
+                <br><br>
+
+                <b>Potensi Karier:</b>
+                Fotografer,
+                Videografer
+                <br><br>
+
+                <b>Kompetensi:</b>
+                Photography,
+                Video Editing
+            `);
+
+    </script>
+
+</body>
+</html>
